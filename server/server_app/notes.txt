@@ -1,0 +1,10 @@
+# create project
+    django-admin startproject rest_auth_project
+    cd rest_auth_project
+# create app
+    python manage.py startapp user_auth
+# run app
+    python manage.py runserver
+# create super admin
+    python manage.py createsuperuser
+
