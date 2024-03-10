@@ -33,10 +33,11 @@ def register(request):
 def login(request):
     username = request.data.get('username')
     password = request.data.get('password')
+    print(username,password)
     user = User.objects.filter(username=username, password=password).first()
     if user:
         return Response({'message': 'Login successful','status': 1}, status=status.HTTP_200_OK)
-    return Response({'message': 'Invalid credentials','status': 0}, status=status.HTTP_401_UNAUTHORIZED)
+    return Response({'message': 'Invalid credentials','status': 0}, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST'])
 def question_list(request):

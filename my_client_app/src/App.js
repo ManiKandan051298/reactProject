@@ -5,30 +5,12 @@ import { Outlet } from "react-router-dom";
 import Login from "./Pages/Login";
 import fetchData1 from 'axios'
 import axios from "axios";
+import { get, post, put, remove } from './axiosWrapper'; // Adjust the path to the axios wrapper utility
 
 function App() {
   return (
     <div>
       <Router>
-        {/* <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/home/contact">contact</Link>
-            </li>
-            <li>
-              <Link to="/Login">Login</Link>
-            </li>
-          </ul>
-        </nav> */}
-
-        {/* <hr /> */}
-
         <Routes>
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
@@ -47,25 +29,17 @@ function Home() {
   const [articles, setArticles] = useState([]);
 
   useEffect(() => {
-    async function fetchArticles() {
+    async function fetchData() {
       try {
-        const response = await fetch("http://localhost:8000/articles/");
-        if (!response.ok) {
-          throw new Error('Failed to fetch articles');
-        }
-        const data = await response.json();
-        setArticles(data.message); // Extract articles from the server response
+        const responseData = await get('/articles/');
+        console.log(responseData)
+        setArticles(responseData.message);
       } catch (error) {
-        console.error('Error fetching articles:', error);
+        console.error('Error fetching data:', error.message);
       }
     }
-
-    fetchArticles();
+    fetchData()
   }, []);
-
-  useEffect(() => {
-    console.log(articles); // Log articles when the state updates
-  }, [articles]);
 
   return (
     <div>
@@ -81,7 +55,6 @@ function Home() {
     </div>
   );
 }
-
 
 
 function About() {
