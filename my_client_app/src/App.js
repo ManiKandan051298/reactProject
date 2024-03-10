@@ -1,7 +1,10 @@
 import React from "react";
 import { Routes, Route, BrowserRouter as Router, Link } from "react-router-dom";
+import { useState, useEffect } from 'react';
 import { Outlet } from "react-router-dom";
 import Login from "./Pages/Login";
+import fetchData1 from 'axios'
+import axios from "axios";
 
 function App() {
   return (
@@ -38,13 +41,48 @@ function App() {
   );
 }
 
+
+
 function Home() {
+  const [articles, setArticles] = useState([]);
+
+  useEffect(() => {
+    async function fetchArticles() {
+      try {
+        const response = await fetch("http://localhost:8000/articles/");
+        if (!response.ok) {
+          throw new Error('Failed to fetch articles');
+        }
+        const data = await response.json();
+        setArticles(data.message); // Extract articles from the server response
+      } catch (error) {
+        console.error('Error fetching articles:', error);
+      }
+    }
+
+    fetchArticles();
+  }, []);
+
+  useEffect(() => {
+    console.log(articles); // Log articles when the state updates
+  }, [articles]);
+
   return (
     <div>
-      <h1>Home</h1>
+      <div>home</div>
+      {/* Render articles here */}
+      {articles.map(article => (
+        <div key={article.id}>
+          <h2>{article.title}</h2>
+          <p>{article.content}</p>
+          <p>Published Date: {article.pub_date}</p>
+        </div>
+      ))}
     </div>
   );
 }
+
+
 
 function About() {
   return (
