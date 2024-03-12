@@ -27,7 +27,7 @@ def register(request):
     if serializer.is_valid():
         serializer.save()
         return Response({'message':'signup success','status':1}, status=status.HTTP_201_CREATED)
-    return Response({'message':serializer.errors, 'status':0}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({'message':serializer.errors, 'status':0}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 def login(request):

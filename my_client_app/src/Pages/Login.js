@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { post } from '../axiosWrapper';
-function Login() {
+import { Link } from 'react-router-dom';
+function Login({onLogin}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -26,6 +27,7 @@ function Login() {
           }
           if(responseData.status === parseInt(1)){
             setErrorMessage(responseData.message)
+            onLogin(username);
           }
         } catch (error) {
           console.error('Error fetching data:', error.message);
@@ -59,7 +61,9 @@ function Login() {
           />
         </div>
         <button type="submit">Login</button>
+
       </form>
+      <p>Create an account? <Link to="/register">register</Link></p>
     </div>
   );
 }
