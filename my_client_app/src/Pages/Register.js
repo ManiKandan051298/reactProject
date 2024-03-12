@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { post } from '../axiosWrapper';
 import { Link } from 'react-router-dom';
+import './Register.css'; 
 function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -45,7 +46,7 @@ function Register() {
     <div className="register-container">
       <h2>Register</h2>
       {errorMessage && <p className="error-message">{errorMessage}</p>}
-      <form onSubmit={handleSubmit}>
+      <div onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="username">Username:</label>
           <input
@@ -82,8 +83,8 @@ function Register() {
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <button type="submit">Register</button>
-      </form>
+  <button type="button" onClick={handleSubmit}>Register</button>
+      </div>
       <p>Already have an account? <Link to="/login">Login</Link></p>
     </div>
   );

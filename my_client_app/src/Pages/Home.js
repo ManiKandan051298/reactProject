@@ -1,34 +1,29 @@
-import { useState, useEffect } from 'react';
-import { get } from '../axiosWrapper'; // Adjust the path to the axios wrapper utility
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Home.css';
+import CourseListPage from './CourseListPage';
 
-export default function Home({ isLoggedIn }) {
-  const [articles, setArticles] = useState([]);
 
-  useEffect(() => {
-    if (isLoggedIn) {
-      async function fetchData() {
-        try {
-          const responseData = await get('/articles/');
-          setArticles(responseData.message);
-        } catch (error) {
-          console.error('Error fetching data:', error.message);
-        }
-      }
-      fetchData();
-    }
-  }, [isLoggedIn]); // Call useEffect whenever isLoggedIn changes
+// Main Component
+export default function Home() {
+  const [activeTab, setActiveTab] = useState(null);
+
+  // Function to set the active tab
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+  };
 
   return (
-    <div>
-      <div>home</div>
-      {/* Render articles here */}
-      {articles.map(article => (
-        <div key={article.id}>
-          <h2>{article.title}</h2>
-          <p>{article.content}</p>
-          <p>Published Date: {article.pub_date}</p>
-        </div>
-      ))}
+    <div className="home-container">
+      <h1>Welcome to Home Page</h1>
+      <div className="tab-container">
+        <Link to="/courselist" className="tab" onClick={() => handleTabClick('Course List')}>Course List</Link>
+        <Link to="/livemeeting" className="tab" onClick={() => handleTabClick('Live Meeting')}>Live Meeting</Link>
+        <Link to="/audiolesson" className="tab" onClick={() => handleTabClick('Audio Lesson')}>Audio Lesson</Link>
+        <Link to="/audioexam" className="tab" onClick={() => handleTabClick('Audio Exam')}>Audio Exam</Link>
+      </div>
+      {/* Render the selected tab */}
+      {activeTab === 'Course List' && <CourseListPage/>}
     </div>
   );
 }

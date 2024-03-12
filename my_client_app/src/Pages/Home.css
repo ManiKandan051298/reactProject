@@ -1,0 +1,56 @@
+.home-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+  }
+  
+  .tab-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Adjust the number of columns as needed */
+    gap: 20px; /* Adjust the gap between tabs */
+  }
+  
+  .tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 2px solid #4CAF50; /* Green border */
+    border-radius: 8px;
+    text-decoration: none;
+    color: #4CAF50; /* Green text color */
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tab:hover {
+    background-color: #4CAF50; /* Green background color on hover */
+    color: white; /* White text color on hover */
+  }
+  
+  .tab:nth-child(1) {
+    background-color: #FFC107; /* Yellow background color for the first tab */
+    color: #333; /* Dark text color */
+  }
+  
+  .tab:nth-child(2) {
+    background-color: #2196F3; /* Blue background color for the second tab */
+    color: #fff; /* White text color */
+  }
+  
+  .tab:nth-child(3) {
+    background-color: #4CAF50; /* Green background color for the third tab */
+    color: #fff; /* White text color */
+  }
+  
+  .tab:nth-child(4) {
+    background-color: #E91E63; /* Pink background color for the fourth tab */
+    color: #fff; /* White text color */
+  }
+  

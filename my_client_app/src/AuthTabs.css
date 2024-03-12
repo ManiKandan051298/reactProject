@@ -1,0 +1,33 @@
+/* AuthTabs.css */
+
+.auth-tabs-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.auth-tabs {
+  display: flex;
+}
+
+.auth-tabs button {
+  border: none;
+  background-color: #f0f0f0;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.auth-tabs button.active {
+  background-color: #fff;
+}
+
+.auth-form-container {
+  border: 1px solid #ccc;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: pink;
+}
+
+.auth-form-container p {
+  margin-top: 20px;
+}

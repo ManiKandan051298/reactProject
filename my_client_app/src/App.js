@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { Routes, Route, BrowserRouter as Router, Navigate } from "react-router-dom";
-import Login from "./Pages/Login";
-import Register from "./Pages/Register";
+import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
 import Home from "./Pages/Home";
-import About from "./Pages/About";
-import Contact from "./Pages/Contact";
-import NoMatch from "./Pages/NoMatch";
+import CourseListPage from './Pages/CourseListPage';
+
+import AuthTabs from "./Pages/AuthTabs";
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState('');
@@ -26,12 +25,11 @@ function App() {
     <div>
       <Router>
         <Routes>
-          <Route path="login" element={<Login onLogin={handleLogin} onLogout={handleLogout} />} />
-          <Route index element={<Home isLoggedIn={isLoggedIn}  />} />
-          <Route path="about" element={<About  isLoggedIn={isLoggedIn}  />} />
-          <Route path="home/contact" element={<Contact isLoggedIn={isLoggedIn}  />} />
-          <Route path="register" element={<Register isLoggedIn={isLoggedIn}  />} />
-          <Route path="*" element={<NoMatch isLoggedIn={isLoggedIn}  />} />
+          {/* <Route path="login" element={<Login onLogin={handleLogin} onLogout={handleLogout} />} /> */}
+          <Route path="/*" element={<AuthTabs onLogin={handleLogin} onLogout={handleLogout} />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/courselist" element={<CourseListPage />} />
+
         </Routes>
       </Router>
     </div>
