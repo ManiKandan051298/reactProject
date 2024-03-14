@@ -1,56 +1,58 @@
+/* Home.css */
 .home-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
-  }
-  
-  .tab-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr); /* Adjust the number of columns as needed */
-    gap: 20px; /* Adjust the gap between tabs */
-  }
-  
-  .tab {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    border: 2px solid #4CAF50; /* Green border */
-    border-radius: 8px;
-    text-decoration: none;
-    color: #4CAF50; /* Green text color */
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-  }
-  
-  .tab:hover {
-    background-color: #4CAF50; /* Green background color on hover */
-    color: white; /* White text color on hover */
-  }
-  
-  .tab:nth-child(1) {
-    background-color: #FFC107; /* Yellow background color for the first tab */
-    color: #333; /* Dark text color */
-  }
-  
-  .tab:nth-child(2) {
-    background-color: #2196F3; /* Blue background color for the second tab */
-    color: #fff; /* White text color */
-  }
-  
-  .tab:nth-child(3) {
-    background-color: #4CAF50; /* Green background color for the third tab */
-    color: #fff; /* White text color */
-  }
-  
-  .tab:nth-child(4) {
-    background-color: #E91E63; /* Pink background color for the fourth tab */
-    color: #fff; /* White text color */
-  }
-  
+  display: flex;
+  flex-direction: column;
+}
+
+.tab-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f8f9fa; /* Add your desired background color */
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.tab {
+  margin-right: 20px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.tab.active {
+  border-bottom: 2px solid #007bff;
+}
+
+.tab-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.content {
+  margin-top: 50px; /* Adjust this value according to the height of the tab container */
+}
+
+.welcome-page {
+  /* Styling for welcome page content */
+}
+
+.nav-bar {
+  position: fixed;
+  top: 10px; /* Adjust the top position as needed */
+  right: 10px; /* Adjust the right position as needed */
+}
+
+.logout-btn {
+  padding: 10px 20px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logout-btn:hover {
+  background-color: #c82333;
+}

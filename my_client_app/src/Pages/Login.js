@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { post } from '../axiosWrapper';
-import { Link, useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import {useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState('');
@@ -62,7 +62,6 @@ function Login({ onLogin }) {
         </div>
         <button type="submit">Login</button>
       </form>
-      <p>Create an account? <Link to="/register">register</Link></p>
     </div>
   );
 }

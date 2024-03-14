@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { post } from '../axiosWrapper';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import './Register.css'; 
 function Register() {
   const [username, setUsername] = useState('');
@@ -85,7 +85,6 @@ function Register() {
         </div>
   <button type="button" onClick={handleSubmit}>Register</button>
       </div>
-      <p>Already have an account? <Link to="/login">Login</Link></p>
     </div>
   );
 }
