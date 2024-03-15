@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 
-function AuthTabs() {
+function AuthTabs({ handleLogin, handleLogout }) {
   const [activeTab, setActiveTab] = useState('login');
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
+  const projectTitle = process.env.REACT_APP_PROJECT_TITLE; // Access the project title from environment variable
+
   return (
     <div style={{ maxWidth: '400px', margin: '0 auto' }}>
+      <h2>{projectTitle}</h2> {/* Display the project title here */}
+      
       <div style={{ display: 'flex', marginBottom: '20px' }}>
         <button
           style={{
@@ -39,9 +42,8 @@ function AuthTabs() {
         </button>
       </div>
       <div style={{ border: '1px solid #ccc', padding: '20px', borderRadius: '5px', backgroundColor: '#fff' }}>
-        {activeTab === 'login' ? <Login /> : <Register />}
+        {activeTab === 'login' ? <Login handleLogin={handleLogin} /> : <Register />}
       </div>
-      <p>{activeTab === 'login' ? "Don't have an account?" : "Already have an account?"} <Link to={activeTab === 'login' ? '/register' : '/login'}>{activeTab === 'login' ? 'Register' : 'Login'}</Link></p>
     </div>
   );
 }
