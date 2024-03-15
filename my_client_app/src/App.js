@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
-import CourseListPage from './Pages/CourseListPage';
+// import CourseListPage from './Pages/CourseListPage';
 import NoMatch from "./Pages/NoMatch";
 import AuthTabs from "./Pages/AuthTabs";
-import LiveMeeting from "./Pages/LiveMeeting";
+// import LiveMeeting from "./Pages/LiveMeeting";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState('');
 
@@ -24,10 +25,7 @@ function App() {
     <div>
       <Router>
         <Routes>
-
-         
-          <Route path="/home" element={<Home handleLogout={handleLogout} isLoggedIn = {isLoggedIn} tabname="Welcome" />} />
-        
+          <Route path="/home" element={<Home handleLogout={handleLogout} isLoggedIn={isLoggedIn} tabname="Welcome" />} />
           <Route path="/login" element={<AuthTabs handleLogin={handleLogin} handleLogout={handleLogout} />} />
           <Route path="/register" element={<AuthTabs handleLogin={handleLogin} handleLogout={handleLogout} />} />
           <Route path="/*" element={<NoMatch handleLogin={handleLogin} handleLogout={handleLogout} />} />
