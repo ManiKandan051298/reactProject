@@ -16,9 +16,9 @@ def upload_audio_file(request):
             for chunk in audio_file.chunks():
                 destination.write(chunk)
 
-        return Response({'message': 'File uploaded successfully'}, status=status.HTTP_201_CREATED)
+        return Response({'message': 'File uploaded successfully'}, status=status.HTTP_200_OK)
     else:
-        return Response({'error': 'No audio file provided'}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': 'No audio file provided'}, status=status.HTTP_200_OK)
 
 
 @api_view(['POST'])
@@ -26,7 +26,7 @@ def register(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response({'message':'signup success','status':1}, status=status.HTTP_201_CREATED)
+        return Response({'message':'signup success','status':1}, status=status.HTTP_200_OK)
     return Response({'message':serializer.errors, 'status':0}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
@@ -49,8 +49,8 @@ def question_list(request):
         serializer = QuestionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'message': serializer.data,'status': 1}, status=status.HTTP_201_CREATED)
-        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': serializer.data,'status': 1}, status=status.HTTP_200_OK)
+        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def question_detail(request, pk):
@@ -67,10 +67,10 @@ def question_detail(request, pk):
         if serializer.is_valid():
             serializer.save()
             return Response({'message': serializer.data,'status': 1})
-        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_200_OK)
     elif request.method == 'DELETE':
         question.delete()
-        return Response({'message': 'success','status': 1},status=status.HTTP_204_NO_CONTENT)
+        return Response({'message': 'success','status': 1},status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST'])
 def choice_list(request):
@@ -82,8 +82,8 @@ def choice_list(request):
         serializer = ChoiceSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'message': serializer.data,'status': 1}, status=status.HTTP_201_CREATED)
-        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': serializer.data,'status': 1}, status=status.HTTP_200_OK)
+        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def choice_detail(request, pk):
@@ -100,10 +100,10 @@ def choice_detail(request, pk):
         if serializer.is_valid():
             serializer.save()
             return Response({'message': serializer.data,'status': 1})
-        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_200_OK)
     elif request.method == 'DELETE':
         choice.delete()
-        return Response({'message': 'success','status': 1},status=status.HTTP_204_NO_CONTENT)
+        return Response({'message': 'success','status': 1},status=status.HTTP_200_OK)
 
 
 
@@ -117,8 +117,8 @@ def topic_list(request):
         serializer = TopicSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'message': serializer.data,'status': 1}, status=status.HTTP_201_CREATED)
-        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': serializer.data,'status': 1}, status=status.HTTP_200_OK)
+        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def topic_detail(request, pk):
@@ -126,7 +126,6 @@ def topic_detail(request, pk):
         topic = Topic.objects.get(pk=pk)
     except Topic.DoesNotExist:
         return Response({'message': '404','status': 0},status=status.HTTP_404_NOT_FOUND)
-
     if request.method == 'GET':
         serializer = TopicSerializer(topic)
         return Response({'message': serializer.data,'status': 1})
@@ -135,10 +134,10 @@ def topic_detail(request, pk):
         if serializer.is_valid():
             serializer.save()
             return Response({'message': serializer.data,'status': 1})
-        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_200_OK)
     elif request.method == 'DELETE':
         topic.delete()
-        return Response({'message': 'success','status': 1},status=status.HTTP_204_NO_CONTENT)
+        return Response({'message': 'success','status': 1},status=status.HTTP_200_OK)
 
 @api_view(['GET', 'POST'])
 def article_list(request):
@@ -150,8 +149,8 @@ def article_list(request):
         serializer = ArticleSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({'message': serializer.data,'status': 1}, status=status.HTTP_201_CREATED)
-        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'message': serializer.data,'status': 1}, status=status.HTTP_200_OK)
+        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_200_OK)
 
 @api_view(['GET', 'PUT', 'DELETE'])
 def article_detail(request, pk):
@@ -168,8 +167,43 @@ def article_detail(request, pk):
         if serializer.is_valid():
             serializer.save()
             return Response({'message': serializer.data,'status': 1})
-        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_200_OK)
     elif request.method == 'DELETE':
         article.delete()
-        return Response({'message': 'success','status': 1},status=status.HTTP_204_NO_CONTENT)
+        return Response({'message': 'success','status': 1},status=status.HTTP_200_OK)
+    
+
+@api_view(['GET', 'POST'])
+def usertopic_list(request):
+    if request.method == 'GET':
+        usertopics = UserTopic.objects.all()
+        serializer = UserTopicSerializer(usertopics, many=True)
+        return Response({'message': serializer.data,'status': 1})
+    elif request.method == 'POST':
+        serializer = UserTopicSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': serializer.data,'status': 1}, status=status.HTTP_200_OK)
+        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_200_OK)
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def usertopic_detail(request, pk):
+    try:
+        usertopic = UserTopic.objects.get(pk=pk)
+    except UserTopic.DoesNotExist:
+        return Response({'message': '404','status': 0},status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == 'GET':
+        serializer = UserTopicSerializer(usertopic)
+        return Response({'message': serializer.data,'status': 1})
+    elif request.method == 'PUT':
+        serializer = UserTopicSerializer(usertopic, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': serializer.data,'status': 1})
+        return Response({'message': serializer.errors,'status': 0}, status=status.HTTP_200_OK)
+    elif request.method == 'DELETE':
+        usertopic.delete()
+        return Response({'message': 'success','status': 1},status=status.HTTP_200_OK)
+    
     

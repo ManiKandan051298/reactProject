@@ -31,4 +31,6 @@ urlpatterns = [
     path('articles/', views.article_list, name='article-list'),
     path('articles/<int:pk>/', views.article_detail, name='article-detail'),
     path('upload/', views.upload_audio_file, name='audio_upload'),
+    path('usertopics/', views.usertopic_list, name='usertopic-list'),
+    path('usertopics/<int:pk>/', views.usertopic_detail, name='usertopic-detail'),
 ]

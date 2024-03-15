@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { post } from '../axiosWrapper';
-import {useNavigate } from 'react-router-dom'; // Import useNavigate hook
-
-function Login({ onLogin }) {
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import usePageTitle from './UsePageTitle'
+function Login({ handleLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // State variable for showing password
   const navigate = useNavigate(); // Initialize navigate function
-
+  usePageTitle("Login")
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -27,7 +28,8 @@ function Login({ onLogin }) {
 
       if (responseData.status === 1) {
         setErrorMessage('');
-        onLogin(username);
+        handleLogin(username);
+        console.log(responseData)
         navigate('/home'); // Navigate to home page
       } else {
         setErrorMessage(responseData.message);
@@ -53,12 +55,21 @@ function Login({ onLogin }) {
         </div>
         <div className="form-group">
           <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <div className="password-input-container">
+            <input
+              type={showPassword ? 'text' : 'password'} // Show password if showPassword is true
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <button
+              type="button"
+              className="password-toggle-button"
+              onClick={() => setShowPassword(!showPassword)} // Toggle showPassword state
+            >
+              {showPassword ? 'Hide password' : 'Show password'}
+            </button>
+          </div>
         </div>
         <button type="submit">Login</button>
       </form>
