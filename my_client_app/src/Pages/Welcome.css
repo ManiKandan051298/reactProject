@@ -1,0 +1,67 @@
+.rotating-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .box {
+    width: 80%;
+    margin-bottom: 20px; /* Adjust margin between boxes */
+    padding: 20px;
+    border: none;
+    border-radius: 5px;
+    display: none; /* Initially hide all boxes */
+    text-align: center; /* Align text inside box to center */
+  }
+  
+  .active {
+    display: block; /* Display active box */
+  }
+  
+  .box-content {
+    margin-bottom: 10px;
+  }
+  
+  .icon-container {
+    display: flex;
+    justify-content: center; /* Center align the Next button */
+  }
+  
+  .contact-us .icon-container {
+    justify-content: center; /* Center align the Next button in Contact Us box */
+  }
+  
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
+  #loggedUse {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 100px; /* Adjust margin between Hey User and boxes */
+  }  
+  
+  .welcome {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+    color: rgb(156, 74, 74);
+  }
+  
+  .about-us {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    color: rgb(88, 161, 88);
+  }
+  
+  .contact-us {
+    box-shadow: 0 0 20px rgba(0, 0, 255, 0.3);
+    color: rgb(96, 96, 172);
+  }
+  

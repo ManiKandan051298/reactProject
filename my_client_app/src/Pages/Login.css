@@ -1,0 +1,105 @@
+/* Login.css */
+
+.login-container {
+    max-width: 400px;
+    margin: 50px auto; /* Center the container vertically and horizontally */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .login-container h2 {
+    margin-bottom: 20px;
+    color: #333; /* Text color for the heading */
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555; /* Text color for labels */
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px; /* Font size for inputs */
+  }
+  
+  .password-input-container {
+    position: relative;
+  }
+  
+  .password-toggle-button {
+    position: absolute;
+    top: 50%;
+    right: 5px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #007bff; /* Text color for toggle button */
+    font-size: 14px; /* Font size for toggle button */
+  }
+  
+  .password-toggle-button:hover {
+    text-decoration: underline; /* Underline toggle button on hover */
+  }
+  
+  .error-message {
+    color: red;
+    margin-top: 10px;
+  }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999; /* Ensure modal is above other content */
+  }
+
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+
+  .skip-text {
+    cursor: pointer;
+    color: #007bff; /* Text color for skip link */
+  }
+
+  .skip-text:hover {
+    text-decoration: underline; /* Underline skip link on hover */
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #0056b3; /* Button background color on hover */
+  }
+  
