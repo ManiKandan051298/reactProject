@@ -1,7 +1,7 @@
 import axios from 'axios';
 
- const baseURL = 'http://djangoservermani.pythonanywhere.com'; // Replace with your API base URL
-//const baseURL = 'http://127.0.0.1:8000'; // Replace with your API base URL
+//  const baseURL = 'http://djangoservermani.pythonanywhere.com'; // Replace with your API base URL
+const baseURL = 'http://127.0.0.1:8000'; // Replace with your API base URL
 // 
 const axiosInstance = axios.create({
   baseURL,
@@ -12,10 +12,10 @@ const axiosInstance = axios.create({
 async function get(endpoint) {
   try {
     const response = await axiosInstance.get(endpoint);
-    return response.data;
+    return response;
   } catch (error) {
-    console.log(error.message);
-    throw new Error(`Error fetching data from ${endpoint}: ${error.message}`);
+    console.log(error.data);
+    throw new Error(`Error fetching data from ${endpoint}: ${error.data}`);
   }
 }
 

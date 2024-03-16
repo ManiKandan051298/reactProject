@@ -23,7 +23,7 @@ function CourseTitle({ imageSrc, title, description, courceStatus }) {
 
   return (
     <div className="course-card">
-      <img src={imageSrc} alt={title} className="course-image" style={{ maxWidth: '100%', height: 'auto' }} />
+      <img src={imageSrc} alt={title} className="course-image"  />
       <div className="course-details">
         <h2>{title}</h2>
         <p>{description}</p>
