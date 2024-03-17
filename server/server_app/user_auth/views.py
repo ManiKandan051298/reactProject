@@ -33,7 +33,7 @@ def register(request):
 def login(request):
     username = request.data.get('username')
     password = request.data.get('password')
-    print(username,password)
+    # print(username,password)
     user = User.objects.filter(username=username, password=password).first()
     if user:
         return Response({'message': 'Login successful','status': 1}, status=status.HTTP_200_OK)
