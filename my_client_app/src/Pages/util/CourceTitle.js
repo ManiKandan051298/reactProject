@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './CourseTitle.css'; // Import CSS file for styling
 
-function CourseTitle({ imageSrc, title, description, courceStatus }) {
+function CourseTitle({ imageSrc, title, description, courceStatus,courceid,isLoggedIn }) {
   const [courceStatusid, setcourceStatusid] = useState(courceStatus);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleEnroll = () => {
-    console.log("enrolled cource")
-    setcourceStatusid(2);
-  };
+  useEffect(() => {
+    if (errorMessage) {
+        alert(errorMessage);
+    }
+}, [errorMessage]);
 
-  const handleRemoveEnroll = () => {
-    setcourceStatusid(1);
-  };
+const handleEnroll = (courseId, title) => {
+  const errorMessage = "Enrolled Success :  Cource ID is " + courseId + ", Title is " + title;
+  setErrorMessage(errorMessage);
+  setcourceStatusid(2);
+};
 
-  const handleComplete = () => {
+
+  const handleComplete = (courseId,title) => {
+    const errorMessage = "Cource Completed Success :  Cource ID is " + courseId + ", Title is " + title;
+
+    setErrorMessage(errorMessage);
     setcourceStatusid(3);
+    // cource completed 
   };
 
-  const handleInComplete = () => {
-    setcourceStatusid(2);
+  const handleCertificate = (courseId,title) => {
+    const errorMessage = "Get Certificate  Success :  Cource ID is " + courseId + ", Title is " + title;
+
+    setErrorMessage(errorMessage);
+
+    // certificate pop up
   };
 
   return (
@@ -30,16 +43,15 @@ function CourseTitle({ imageSrc, title, description, courceStatus }) {
       </div>
       <div className="buttons">
         {courceStatusid === 1 && (
-          <button onClick={handleEnroll}>Add to Enroll</button>
+          <button onClick={() => handleEnroll(courceid,title)}>Add to Enroll</button>
         )}
         {courceStatusid === 2 && (
           <>
-            <button onClick={handleRemoveEnroll}>Remove Enroll</button>
-            <button onClick={handleComplete}>Mark as Complete</button>
+            <button onClick={()=>handleComplete(courceid,title)}>Mark as Complete</button>
           </>
         )}
         {courceStatusid === 3 && (
-          <button onClick={handleInComplete}>Mark as Incomplete</button>
+          <button onClick={()=>handleCertificate(courceid,title)}>Get Certificate</button>
         )}
       </div>
     </div>
