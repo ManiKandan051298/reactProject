@@ -1,12 +1,14 @@
+// CourseListPage.js
+
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import "./CourseListPage.css";
 import usePageTitle from "./UsePageTitle";
-import CourceTitle from "./util/CourceTitle";
+import CourceTitle from "./util/CourseTitle";
 import { get } from '../axiosWrapper';
 
 function CourseListPage({ isLoggedIn }) {
-  const [showAvailable, setShowAvailable] = useState(false);
+  const [showAvailable, setShowAvailable] = useState(true);
   const [showEnrolled, setShowEnrolled] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
   const [allCourse, setAllCourses] = useState([]);
@@ -19,7 +21,10 @@ function CourseListPage({ isLoggedIn }) {
         const response = await get('/topics');
         console.log(response)
         if (response.data.status === 1) {
-          setAllCourses(response.data.message);
+          setAllCourses(response.data.message.map(course => ({
+            ...course,
+            status: 1
+          })));
         } else {
           console.error('Failed to fetch courses:', response);
         }
@@ -27,19 +32,50 @@ function CourseListPage({ isLoggedIn }) {
         console.error('Error fetching data:', error);
       }
     }
-    
-    fetchData();
-  }, []); // Run only once when the component mounts
 
-  // Redirect to login page if not logged in
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    // Refresh the active tab whenever allCourse changes
+    switch (activeTab) {
+      case 'available':
+        setShowAvailable(true);
+        setShowEnrolled(false);
+        setShowCompleted(false);
+        break;
+      case 'enrolled':
+        setShowAvailable(false);
+        setShowEnrolled(true);
+        setShowCompleted(false);
+        break;
+        case 'completed':
+          setShowAvailable(false);
+          setShowEnrolled(false);
+          setShowCompleted(true);
+          break;
+          default:
+            break;
+          }
+          console.log(activeTab)
+  }, [allCourse]); // Re-run effect whenever allCourse changes
+
   if (!isLoggedIn) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
+
+  const handleEnroll = (courseId) => {
+    // Logic to handle enrollment
+    setAllCourses(allCourse.map(course =>
+      course.id === courseId ? { ...course, enrolled: true } : course
+    ));
+    console.log("Enrolled in course with ID:", courseId);
+  };
 
   return (
     <div className="course-options">
       <div className="main-tab">
-      <h2>Course List Options</h2>
+        <h2>Course List Options</h2>
       </div>
       <div className="option-tabs">
         <span
@@ -77,43 +113,78 @@ function CourseListPage({ isLoggedIn }) {
         </span>
       </div>
       {activeTab === 'available' && showAvailable && (
-        <div className="course-list">
-          {allCourse.map(course => (
-            <div className="course-item">
-              <CourceTitle
-                courceStatus={1}
-                imageSrc={course.image_url}
-                title={course.name}
-                description={course.description}
-                courceid={course.id}
-              />
-            </div>
-          ))}
-        </div>
+                  <div className="course-list">
+                  {allCourse.filter(course => course.status === 1).length > 0 ? (
+                    allCourse.map(course =>
+                      course.status === 1 ? (
+                        <div className="course-item" key={course.id}>
+                          <CourceTitle
+                          allCourse={allCourse} setAllCourses={setAllCourses}
+                            courceStatus={course.status}
+                            imageSrc={course.image_url}
+                            title={course.name}
+                            description={course.description}
+                            courceid={course.id}
+                          />
+                        </div>
+                      ) : null
+                    )
+                  ) : (
+                    <div style={{ textAlign: "center" }} > <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpurepng.com%2Fpublic%2Fuploads%2Fmedium%2Fpurepng.com-recycle-binrecycle-bincomputer-recyclebindustbinrecycleempty-1421526586123phutm.png&f=1&nofb=1&ipt=f09ec70a71626338bf877745d85da9aca26d25ef3f917360cecd4d818c757be8&ipo=images" style={{ width: '100px', height: '100px', marginTop: 100 }} alt="Empty Bin" />
+                      <p style={{ textAlign: "center", color: 'blue', marginTop: 30 }}>No completed courses found</p>
+                    </div>
+                  )}
+                </div>
       )}
       {activeTab === 'enrolled' && showEnrolled && (
-        <div className="course-list">
-          <div className="course-item">
-            <CourceTitle
-              courceStatus={2}
-              imageSrc="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbrandslogos.com%2Fwp-content%2Fuploads%2Fimages%2Flarge%2Fpython-logo.png&f=1&nofb=1&ipt=ca1e9dd693cee8f8243afa2db341338fd39b225f1732ba1af02e8fd46b052f83&ipo=images"
-              title="python"
-              description="student"
-            />
-          </div>
-        </div>
+           <div className="course-list">
+           {allCourse.filter(course => course.status === 2).length > 0 ? (
+             allCourse.map(course =>
+               course.status === 2 ? (
+                 <div className="course-item" key={course.id}>
+                   <CourceTitle
+                   allCourse={allCourse} setAllCourses={setAllCourses}
+                     courceStatus={course.status}
+                     imageSrc={course.image_url}
+                     title={course.name}
+                     description={course.description}
+                     courceid={course.id}
+                   />
+                 </div>
+               ) : null
+             )
+           ) : (
+             <div style={{ textAlign: "center" }} > <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpurepng.com%2Fpublic%2Fuploads%2Fmedium%2Fpurepng.com-recycle-binrecycle-bincomputer-recyclebindustbinrecycleempty-1421526586123phutm.png&f=1&nofb=1&ipt=f09ec70a71626338bf877745d85da9aca26d25ef3f917360cecd4d818c757be8&ipo=images" style={{ width: '100px', height: '100px', marginTop: 100 }} alt="Empty Bin" />
+               <p style={{ textAlign: "center", color: 'blue', marginTop: 30 }}>No completed courses found</p>
+             </div>
+           )}
+         </div>
       )}
       {activeTab === 'completed' && showCompleted && (
         <div className="course-list">
-          <div className="course-item">
-            <CourceTitle
-              courceStatus={3}
-              imageSrc="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbrandslogos.com%2Fwp-content%2Fuploads%2Fimages%2Flarge%2Fpython-logo.png&f=1&nofb=1&ipt=ca1e9dd693cee8f8243afa2db341338fd39b225f1732ba1af02e8fd46b052f83&ipo=images"
-              title="python"
-              description="student"
-            />
-          </div>
+          {allCourse.filter(course => course.status === 3).length > 0 ? (
+            allCourse.map(course =>
+              course.status === 3 ? (
+                <div className="course-item" key={course.id}>
+                  <CourceTitle
+                  allCourse={allCourse} setAllCourses={setAllCourses}
+                    courceStatus={course.status}
+                    imageSrc={course.image_url}
+                    title={course.name}
+                    description={course.description}
+                    courceid={course.id}
+                  />
+                </div>
+              ) : null
+            )
+          ) : (
+            <div style={{ textAlign: "center" }} > <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpurepng.com%2Fpublic%2Fuploads%2Fmedium%2Fpurepng.com-recycle-binrecycle-bincomputer-recyclebindustbinrecycleempty-1421526586123phutm.png&f=1&nofb=1&ipt=f09ec70a71626338bf877745d85da9aca26d25ef3f917360cecd4d818c757be8&ipo=images" style={{ width: '100px', height: '100px', marginTop: 100 }} alt="Empty Bin" />
+              <p style={{ textAlign: "center", color: 'blue', marginTop: 30 }}>No completed courses found</p>
+            </div>
+          )}
         </div>
+
+
       )}
     </div>
   );

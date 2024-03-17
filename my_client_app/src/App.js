@@ -26,7 +26,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/home" element={<Home handleLogout={handleLogout} isLoggedIn={isLoggedIn} tabname="Welcome" />} />
-          <Route path="/login" element={<AuthTabs handleLogin={handleLogin} handleLogout={handleLogout} />} />
+          <Route path="/" element={<AuthTabs handleLogin={handleLogin} handleLogout={handleLogout} />} />
           <Route path="/register" element={<AuthTabs handleLogin={handleLogin} handleLogout={handleLogout} />} />
           <Route path="/*" element={<NoMatch handleLogin={handleLogin} handleLogout={handleLogout} />} />
         </Routes>
