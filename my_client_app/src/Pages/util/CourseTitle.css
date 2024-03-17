@@ -1,25 +1,61 @@
+/* CourseTitle.css */
 .course-card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .course-image {
-    width: 100px;
-    height: 100px;
-    border-radius: 5px;
-  }
-  
-  .course-details {
-    margin-bottom: 10px;
-  }
-  
-  .buttons {
-    display: flex;
-    gap: 10px;
-  }
-  
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
-  
+.course-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.course-details {
+  margin-bottom: 10px;
+}
+
+.buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.enrolled-button {
+  background-color: green;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: not-allowed;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  color: white;
+  border-radius: 5px;
+}
+
+.popup-content {
+  text-align: center;
+}
+
+.popup button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.popup button:hover {
+  background-color: #0056b3;
+}

@@ -6,7 +6,7 @@ import CourceTitle from "./util/CourceTitle";
 import { get } from '../axiosWrapper';
 
 function CourseListPage({ isLoggedIn }) {
-  const [showAvailable, setShowAvailable] = useState(false);
+  const [showAvailable, setShowAvailable] = useState(true);
   const [showEnrolled, setShowEnrolled] = useState(false);
   const [showCompleted, setShowCompleted] = useState(false);
   const [allCourse, setAllCourses] = useState([]);
@@ -29,17 +29,21 @@ function CourseListPage({ isLoggedIn }) {
     }
     
     fetchData();
-  }, []); // Run only once when the component mounts
+  }, []);
 
-  // Redirect to login page if not logged in
   if (!isLoggedIn) {
     return <Navigate to="/login" />;
   }
 
+  const handleEnroll = (courseId) => {
+    // Logic to handle enrollment
+    console.log("Enrolled in course with ID:", courseId);
+  };
+
   return (
     <div className="course-options">
       <div className="main-tab">
-      <h2>Course List Options</h2>
+        <h2>Course List Options</h2>
       </div>
       <div className="option-tabs">
         <span
@@ -79,9 +83,29 @@ function CourseListPage({ isLoggedIn }) {
       {activeTab === 'available' && showAvailable && (
         <div className="course-list">
           {allCourse.map(course => (
-            <div className="course-item">
+            <div className="course-item" key={course.id}>
               <CourceTitle
                 courceStatus={1}
+                imageSrc={course.image_url}
+                title={course.name}
+                description={course.description}
+                courceid={course.id}
+                actionButton={
+                  <button onClick={() => handleEnroll(course.id)}>
+                    Add to Enroll
+                  </button>
+                }
+              />
+            </div>
+          ))}
+        </div>
+      )}
+      {activeTab === 'enrolled' && showEnrolled && (
+        <div className="course-list">
+          {allCourse.map(course => (
+            <div className="course-item" key={course.id}>
+              <CourceTitle
+                courceStatus={2}
                 imageSrc={course.image_url}
                 title={course.name}
                 description={course.description}
@@ -91,28 +115,19 @@ function CourseListPage({ isLoggedIn }) {
           ))}
         </div>
       )}
-      {activeTab === 'enrolled' && showEnrolled && (
-        <div className="course-list">
-          <div className="course-item">
-            <CourceTitle
-              courceStatus={2}
-              imageSrc="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbrandslogos.com%2Fwp-content%2Fuploads%2Fimages%2Flarge%2Fpython-logo.png&f=1&nofb=1&ipt=ca1e9dd693cee8f8243afa2db341338fd39b225f1732ba1af02e8fd46b052f83&ipo=images"
-              title="python"
-              description="student"
-            />
-          </div>
-        </div>
-      )}
       {activeTab === 'completed' && showCompleted && (
         <div className="course-list">
-          <div className="course-item">
-            <CourceTitle
-              courceStatus={3}
-              imageSrc="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fbrandslogos.com%2Fwp-content%2Fuploads%2Fimages%2Flarge%2Fpython-logo.png&f=1&nofb=1&ipt=ca1e9dd693cee8f8243afa2db341338fd39b225f1732ba1af02e8fd46b052f83&ipo=images"
-              title="python"
-              description="student"
-            />
-          </div>
+          {allCourse.map(course => (
+            <div className="course-item" key={course.id}>
+              <CourceTitle
+                courceStatus={3}
+                imageSrc={course.image_url}
+                title={course.name}
+                description={course.description}
+                courceid={course.id}
+              />
+            </div>
+          ))}
         </div>
       )}
     </div>

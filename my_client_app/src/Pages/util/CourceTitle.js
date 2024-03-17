@@ -3,27 +3,21 @@ import './CourseTitle.css'; // Import CSS file for styling
 
 function CourseTitle({ imageSrc, title, description, courceStatus }) {
   const [courceStatusid, setcourceStatusid] = useState(courceStatus);
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleEnroll = () => {
-    console.log("enrolled cource")
+    console.log("enrolled course")
     setcourceStatusid(2);
+    setShowPopup(true);
   };
 
-  const handleRemoveEnroll = () => {
-    setcourceStatusid(1);
-  };
-
-  const handleComplete = () => {
-    setcourceStatusid(3);
-  };
-
-  const handleInComplete = () => {
-    setcourceStatusid(2);
+  const handleClosePopup = () => {
+    setShowPopup(false);
   };
 
   return (
     <div className="course-card">
-      <img src={imageSrc} alt={title} className="course-image"  />
+      <img src={imageSrc} alt={title} className="course-image" />
       <div className="course-details">
         <h2>{title}</h2>
         <p>{description}</p>
@@ -33,15 +27,17 @@ function CourseTitle({ imageSrc, title, description, courceStatus }) {
           <button onClick={handleEnroll}>Add to Enroll</button>
         )}
         {courceStatusid === 2 && (
-          <>
-            <button onClick={handleRemoveEnroll}>Remove Enroll</button>
-            <button onClick={handleComplete}>Mark as Complete</button>
-          </>
-        )}
-        {courceStatusid === 3 && (
-          <button onClick={handleInComplete}>Mark as Incomplete</button>
+          <button className="enrolled-button">Enrolled</button>
         )}
       </div>
+      {showPopup && (
+        <div className="popup">
+          <div className="popup-content">
+            <p>Course enrolled successfully!</p>
+            <button onClick={handleClosePopup}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
