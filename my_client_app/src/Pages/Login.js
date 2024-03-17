@@ -33,6 +33,7 @@ function Login({ handleLogin }) {
 
       if (responseData.status === 1) {
         setErrorMessage('');
+        setShowModal(false);
         handleLogin(username);
         console.log(responseData)
         navigate('/home'); // Navigate to home page

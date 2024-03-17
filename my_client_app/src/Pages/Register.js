@@ -34,9 +34,11 @@ function Register() {
 
         if (responseData.status === 0) {
           setErrorMessage(responseData.message.email);
+          setSuccessMessage('');
           setShowModal(true);
         } else {
           // Registration successful, you can redirect the user or show a success message
+          setErrorMessage('');
           setSuccessMessage('Registration successful');
           setShowModal(true);
           console.log('Registration successful:', responseData);
