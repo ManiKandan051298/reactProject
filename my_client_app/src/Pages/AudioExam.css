@@ -1,0 +1,32 @@
+.question-list {
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+  }
+  
+  .question {
+    margin-bottom: 20px;
+  }
+  
+  .question-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  
+  .question-text {
+    margin-bottom: 10px;
+  }
+  
+  .choices {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .choice {
+    margin-top: 5px;
+  }
+  
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+  

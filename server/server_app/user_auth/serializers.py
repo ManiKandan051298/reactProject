@@ -6,22 +6,25 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['id', 'username','email', 'password']
         extra_kwargs = {'password': {'write_only': True}}
-
-
 class ChoiceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Choice
-        fields = ['id', 'question', 'choice_text', 'votes']
-        depth = 1
+        fields = ['id', 'choice_text']
 
 class QuestionSerializer(serializers.ModelSerializer):
-    choices = ChoiceSerializer(many=True, read_only=True)
+    # choices = ChoiceSerializer(many=True)
 
     class Meta:
         model = Question
-        fields = ['id', 'question_text', 'choices']
-        depth = 1
+        fields = ['id', 'question_text', 'pub_date']
 
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        question_id = data['id']
+        choices_queryset = Choice.objects.filter(question_id=question_id)
+        choices_serializer = ChoiceSerializer(choices_queryset, many=True)
+        data['choices'] = choices_serializer.data
+        return data
         
 class TopicSerializer(serializers.ModelSerializer):
     class Meta:
