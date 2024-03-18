@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import './CourseTitle.css'; // Import CSS file for styling
 
-function CourseTitle({ imageSrc, title, description, courceStatus }) {
+function CourseTitle({ imageSrc, title, description, courceStatus,courceid,isLoggedIn }) {
   const [courceStatusid, setcourceStatusid] = useState(courceStatus);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -24,7 +24,7 @@ function CourseTitle({ imageSrc, title, description, courceStatus }) {
       </div>
       <div className="buttons">
         {courceStatusid === 1 && (
-          <button onClick={handleEnroll}>Add to Enroll</button>
+          <button onClick={() => handleEnroll(courceid,title)}>Add to Enroll</button>
         )}
         {courceStatusid === 2 && (
           <button className="enrolled-button">Enrolled</button>

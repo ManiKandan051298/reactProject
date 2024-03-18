@@ -12,31 +12,33 @@ function AuthTabs({ handleLogin, handleLogout }) {
   const projectTitle = process.env.REACT_APP_PROJECT_TITLE; // Access the project title from environment variable
 
   return (
-    <div style={{ maxWidth: '400px', margin: '0 auto',justifyContent:'center' }}>
+    <div style={{ maxWidth: '400px', margin: '0 auto', textAlign: 'center' }}>
       <h2>{projectTitle}</h2> {/* Display the project title here */}
-      
-      <div style={{ display: 'flex', marginBottom: '20px', justifyContent: 'center' }}>
+
+      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
         <button
-       style={{
-        borderBottom: '2px solid green', // Specify border bottom with red color
-        color: 'black', // Set font color to black
-        padding: '10px 20px',
-        cursor: 'pointer',
-        transition: 'background-color 0.3s ease',
-        backgroundColor: activeTab === 'login' ? 'whitesmoke' : 'white', // Set background color based on activeTab
-      }}
+          style={{
+            border: 'none',
+            borderBottom: activeTab === 'login' ? '2px solid green' : 'none',
+            backgroundColor: 'transparent',
+            color: activeTab === 'login' ? 'green' : 'black',
+            padding: '10px 20px',
+            cursor: 'pointer',
+            transition: 'border-color 0.3s, color 0.3s'
+          }}
           onClick={() => handleTabChange('login')}
         >
           Login
         </button>
         <button
           style={{
-            borderBottom: '2px solid blue', // Specify border bottom with red color
-            backgroundColor: activeTab === 'register' ? 'whitesmoke' : 'white',
+            border: 'none',
+            borderBottom: activeTab === 'register' ? '2px solid blue' : 'none',
+            backgroundColor: 'transparent',
+            color: activeTab === 'register' ? 'blue' : 'black',
             padding: '10px 20px',
-            color: 'black', // Set font color to black
             cursor: 'pointer',
-            transition: 'background-color 0.3s ease'
+            transition: 'border-color 0.3s, color 0.3s'
           }}
           onClick={() => handleTabChange('register')}
         >

@@ -1,3 +1,5 @@
+// CourseListPage.js
+
 import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import "./CourseListPage.css";
@@ -19,7 +21,10 @@ function CourseListPage({ isLoggedIn }) {
         const response = await get('/topics');
         console.log(response)
         if (response.data.status === 1) {
-          setAllCourses(response.data.message);
+          setAllCourses(response.data.message.map(course => ({
+            ...course,
+            enrolled: false // Add enrolled status for each course
+          })));
         } else {
           console.error('Failed to fetch courses:', response);
         }
@@ -37,6 +42,9 @@ function CourseListPage({ isLoggedIn }) {
 
   const handleEnroll = (courseId) => {
     // Logic to handle enrollment
+    setAllCourses(allCourse.map(course => 
+      course.id === courseId ? { ...course, enrolled: true } : course
+    ));
     console.log("Enrolled in course with ID:", courseId);
   };
 
@@ -90,9 +98,10 @@ function CourseListPage({ isLoggedIn }) {
                 title={course.name}
                 description={course.description}
                 courceid={course.id}
+                enrolled={course.enrolled} // Pass enrolled status to CourceTitle
                 actionButton={
                   <button onClick={() => handleEnroll(course.id)}>
-                    Add to Enroll
+                    {course.enrolled ? "Enrolled" : "Add to Enroll"}
                   </button>
                 }
               />
