@@ -39,7 +39,7 @@ function CourseListPage({ isLoggedIn }) {
 
   // Redirect to login page if not logged in
   if (!isLoggedIn) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   return (

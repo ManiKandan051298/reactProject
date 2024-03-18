@@ -14,14 +14,11 @@ function WelcomePage({ isLoggedIn }) {
   // Redirect to login page if not logged in
   useEffect(() => {
     if (!isLoggedIn) {
-      navigate('/login');
+      navigate('/');
     }
   }, [isLoggedIn, navigate]);
 
-  if (!isLoggedIn) {
-    // Render nothing if not logged in
-    return null;
-  }
+ 
 
   const handleNextClick = () => {
     setCurrentBox(prevBox => prevBox === 2 ? 0 : prevBox + 1); // Loop back to Welcome box after Contact Us box

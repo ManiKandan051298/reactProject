@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import "./CourseListPage.css";
 import usePageTitle from "./UsePageTitle";
-import CourceTitle from "./util/CourceTitle";
+import CourceTitle from "./util/CourseTitle";
 import { get } from '../axiosWrapper';
 
 function CourseListPage({ isLoggedIn }) {
@@ -23,7 +23,7 @@ function CourseListPage({ isLoggedIn }) {
         if (response.data.status === 1) {
           setAllCourses(response.data.message.map(course => ({
             ...course,
-            enrolled: false // Add enrolled status for each course
+            status: 1
           })));
         } else {
           console.error('Failed to fetch courses:', response);
@@ -32,17 +32,41 @@ function CourseListPage({ isLoggedIn }) {
         console.error('Error fetching data:', error);
       }
     }
-    
+
     fetchData();
   }, []);
 
+  useEffect(() => {
+    // Refresh the active tab whenever allCourse changes
+    switch (activeTab) {
+      case 'available':
+        setShowAvailable(true);
+        setShowEnrolled(false);
+        setShowCompleted(false);
+        break;
+      case 'enrolled':
+        setShowAvailable(false);
+        setShowEnrolled(true);
+        setShowCompleted(false);
+        break;
+        case 'completed':
+          setShowAvailable(false);
+          setShowEnrolled(false);
+          setShowCompleted(true);
+          break;
+          default:
+            break;
+          }
+          console.log(activeTab)
+  }, [allCourse]); // Re-run effect whenever allCourse changes
+
   if (!isLoggedIn) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   const handleEnroll = (courseId) => {
     // Logic to handle enrollment
-    setAllCourses(allCourse.map(course => 
+    setAllCourses(allCourse.map(course =>
       course.id === courseId ? { ...course, enrolled: true } : course
     ));
     console.log("Enrolled in course with ID:", courseId);
@@ -89,55 +113,78 @@ function CourseListPage({ isLoggedIn }) {
         </span>
       </div>
       {activeTab === 'available' && showAvailable && (
-        <div className="course-list">
-          {allCourse.map(course => (
-            <div className="course-item" key={course.id}>
-              <CourceTitle
-                courceStatus={1}
-                imageSrc={course.image_url}
-                title={course.name}
-                description={course.description}
-                courceid={course.id}
-                enrolled={course.enrolled} // Pass enrolled status to CourceTitle
-                actionButton={
-                  <button onClick={() => handleEnroll(course.id)}>
-                    {course.enrolled ? "Enrolled" : "Add to Enroll"}
-                  </button>
-                }
-              />
-            </div>
-          ))}
-        </div>
+                  <div className="course-list">
+                  {allCourse.filter(course => course.status === 1).length > 0 ? (
+                    allCourse.map(course =>
+                      course.status === 1 ? (
+                        <div className="course-item" key={course.id}>
+                          <CourceTitle
+                          allCourse={allCourse} setAllCourses={setAllCourses}
+                            courceStatus={course.status}
+                            imageSrc={course.image_url}
+                            title={course.name}
+                            description={course.description}
+                            courceid={course.id}
+                          />
+                        </div>
+                      ) : null
+                    )
+                  ) : (
+                    <div style={{ textAlign: "center" }} > <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpurepng.com%2Fpublic%2Fuploads%2Fmedium%2Fpurepng.com-recycle-binrecycle-bincomputer-recyclebindustbinrecycleempty-1421526586123phutm.png&f=1&nofb=1&ipt=f09ec70a71626338bf877745d85da9aca26d25ef3f917360cecd4d818c757be8&ipo=images" style={{ width: '100px', height: '100px', marginTop: 100 }} alt="Empty Bin" />
+                      <p style={{ textAlign: "center", color: 'blue', marginTop: 30 }}>No completed courses found</p>
+                    </div>
+                  )}
+                </div>
       )}
       {activeTab === 'enrolled' && showEnrolled && (
-        <div className="course-list">
-          {allCourse.map(course => (
-            <div className="course-item" key={course.id}>
-              <CourceTitle
-                courceStatus={2}
-                imageSrc={course.image_url}
-                title={course.name}
-                description={course.description}
-                courceid={course.id}
-              />
-            </div>
-          ))}
-        </div>
+           <div className="course-list">
+           {allCourse.filter(course => course.status === 2).length > 0 ? (
+             allCourse.map(course =>
+               course.status === 2 ? (
+                 <div className="course-item" key={course.id}>
+                   <CourceTitle
+                   allCourse={allCourse} setAllCourses={setAllCourses}
+                     courceStatus={course.status}
+                     imageSrc={course.image_url}
+                     title={course.name}
+                     description={course.description}
+                     courceid={course.id}
+                   />
+                 </div>
+               ) : null
+             )
+           ) : (
+             <div style={{ textAlign: "center" }} > <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpurepng.com%2Fpublic%2Fuploads%2Fmedium%2Fpurepng.com-recycle-binrecycle-bincomputer-recyclebindustbinrecycleempty-1421526586123phutm.png&f=1&nofb=1&ipt=f09ec70a71626338bf877745d85da9aca26d25ef3f917360cecd4d818c757be8&ipo=images" style={{ width: '100px', height: '100px', marginTop: 100 }} alt="Empty Bin" />
+               <p style={{ textAlign: "center", color: 'blue', marginTop: 30 }}>No completed courses found</p>
+             </div>
+           )}
+         </div>
       )}
       {activeTab === 'completed' && showCompleted && (
         <div className="course-list">
-          {allCourse.map(course => (
-            <div className="course-item" key={course.id}>
-              <CourceTitle
-                courceStatus={3}
-                imageSrc={course.image_url}
-                title={course.name}
-                description={course.description}
-                courceid={course.id}
-              />
+          {allCourse.filter(course => course.status === 3).length > 0 ? (
+            allCourse.map(course =>
+              course.status === 3 ? (
+                <div className="course-item" key={course.id}>
+                  <CourceTitle
+                  allCourse={allCourse} setAllCourses={setAllCourses}
+                    courceStatus={course.status}
+                    imageSrc={course.image_url}
+                    title={course.name}
+                    description={course.description}
+                    courceid={course.id}
+                  />
+                </div>
+              ) : null
+            )
+          ) : (
+            <div style={{ textAlign: "center" }} > <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fpurepng.com%2Fpublic%2Fuploads%2Fmedium%2Fpurepng.com-recycle-binrecycle-bincomputer-recyclebindustbinrecycleempty-1421526586123phutm.png&f=1&nofb=1&ipt=f09ec70a71626338bf877745d85da9aca26d25ef3f917360cecd4d818c757be8&ipo=images" style={{ width: '100px', height: '100px', marginTop: 100 }} alt="Empty Bin" />
+              <p style={{ textAlign: "center", color: 'blue', marginTop: 30 }}>No completed courses found</p>
             </div>
-          ))}
+          )}
         </div>
+
+
       )}
     </div>
   );

@@ -17,12 +17,12 @@ export default function Home({ handleLogout, isLoggedIn,tabname}) {
 
   const logoutActivate = () => {
     handleLogout('');
-    return <Navigate to="/login" />
+    return <Navigate to="/" />
   };
 
   // Redirect to login page if not logged in
   if (!isLoggedIn) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   return (

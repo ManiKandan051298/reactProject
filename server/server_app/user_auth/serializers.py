@@ -41,7 +41,7 @@ class ArticleSerializer(serializers.ModelSerializer):
 
 class UserTopicSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    topic = TopicSerializer()  # Nested serializer for Topic
+    topic = TopicSerializer() 
     class Meta:
         model = UserTopic
         fields = ['id', 'user', 'topic', 'status']

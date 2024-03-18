@@ -40,7 +40,7 @@ function AudioExam({ isLoggedIn }) {
   }, []); // Run only once when the component mounts
 
   if (!isLoggedIn) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   const handleChoiceSelection = (questionId, choiceId) => {
@@ -160,7 +160,18 @@ function AudioExam({ isLoggedIn }) {
           </div>
         </div>
       ))}
-     {isSubmitted ?  <p style={{color:'green'}}> You Have Already Submitted Your response ,Your Score is: {score}</p>: <button onClick={handleSubmit} >Submit</button>}
+      {
+  allQuestions ? (
+    isSubmitted ? (
+      <p style={{ color: 'green' }}> You Have Already Submitted Your response : {score}</p>
+    ) : (
+      <button onClick={handleSubmit}>Submit</button>
+    )
+  ) : (
+    <p></p>
+  )
+}
+
       {showModal && (
         <div className="modal">
           <div className="modal-content">

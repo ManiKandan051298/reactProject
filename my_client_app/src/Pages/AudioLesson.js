@@ -10,8 +10,8 @@ function Presentation({ data }) {
     <div>
       {data.map(item => (
         <div key={item.id}>
-          <h2 style={{ marginTop: 150 }}>{item.title}</h2>
-          <TextWithSpeechButton text={item.topic.name} label="Topic" />
+          <h2 style={{ marginTop: 150,textAlign:'center' }}>{item.topic.name} , {item.title}  </h2>
+          {/* <TextWithSpeechButton text={item.topic.name} label="Topic" /> */}
           <TextWithSpeechButton text={item.topic.description} label="Description" />
           <TextWithSpeechButton text={item.content} label="Content" />
           <p><strong>Publication Date:</strong> {new Date(item.pub_date).toLocaleString()}</p>
@@ -71,12 +71,12 @@ function AudioLesson({ isLoggedIn }) {
   }, []); // Run only once when the component mounts
 
   if (!isLoggedIn) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/" />;
   }
 
   return (
     <div className="course-options">
-      <h2>Audio Lesson Options</h2>
+      {/* <h2>Audio Lesson Options</h2> */}
       <Presentation data={allCourse} />
     </div>
   );
