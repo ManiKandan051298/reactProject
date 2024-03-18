@@ -32,7 +32,7 @@ export default function Home({ handleLogout, isLoggedIn,tabname}) {
           {/* <Link to="/" className="tab-link">Welcome</Link> */} Welcome
         </div>
         <div className={`tab ${activeTab === 'Course List' ? 'active' : ''}`} onClick={() => handleTabClick('Course List')}>
-          {/* <Link to="/courselist" className="tab-link">Course List</Link> */} CourceList
+          {/* <Link to="/courselist" className="tab-link">Course List</Link> */} CourseList
         </div>
         <div className={`tab ${activeTab === 'Live Meeting' ? 'active' : ''}`} onClick={() => handleTabClick('Live Meeting')}>
           {/* <Link to="/livemeeting" className="tab-link">Live Meeting</Link> */} LiveMeeting
